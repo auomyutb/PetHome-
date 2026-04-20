@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom'
-
+import logo from '../assets/pethome-logo.png'
 const Header = ({ user, signOutUser }) => {
   return (
     <header className='header'>
-      <div className='logo'>petHome</div>
+            <Link to='/'>
+        <img src={logo} alt='petHome logo' className='header-logo' />
+      </Link>
 
       <nav className='nav'>
         <Link to='/'>Home</Link>

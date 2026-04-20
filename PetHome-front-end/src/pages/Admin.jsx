@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-const Admin = ({ pets, donations, addPet }) => {
+const Admin = ({ pets, donations, addPet, updatePet, deletePet, deleteDonation }) => {
   const [form, setForm] = useState({
     name: '',
     type: 'dog',
@@ -11,32 +11,90 @@ const Admin = ({ pets, donations, addPet }) => {
   })
 
   const [loading, setLoading] = useState(false)
+  const [editId, setEditId] = useState(null)
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value })
+  }
+
+  const resetForm = () => {
+    setForm({
+      name: '',
+      type: 'dog',
+      breed: '',
+      age: '',
+      description: '',
+      image: ''
+    })
+    setEditId(null)
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     setLoading(true)
 
-    const success = await addPet(form)
+    let success = false
+
+    if (editId) {
+      success = await updatePet(editId, form)
+    } else {
+      success = await addPet(form)
+    }
 
     if (success) {
-      alert('Pet added successfully')
-      setForm({
-        name: '',
-        type: 'dog',
-        breed: '',
-        age: '',
-        description: '',
-        image: ''
-      })
+      alert(editId ? 'Pet updated successfully' : 'Pet added successfully')
+      resetForm()
     } else {
-      alert('Error adding pet')
+      alert(editId ? 'Error updating pet' : 'Error adding pet')
     }
 
     setLoading(false)
+  }
+
+  const handleEdit = (pet) => {
+    setForm({
+      name: pet.name,
+      type: pet.type,
+      breed: pet.breed,
+      age: pet.age,
+      description: pet.description,
+      image: pet.image
+    })
+
+    setEditId(pet._id)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm('Are you sure you want to delete this pet?')
+
+    if (!confirmDelete) {
+      return
+    }
+
+    const success = await deletePet(id)
+
+    if (success) {
+      alert('Pet deleted successfully')
+    } else {
+      alert('Error deleting pet')
+    }
+  }
+
+  const handleDeleteDonation = async (id) => {
+    const confirmDelete = window.confirm('Are you sure you want to delete this donation?')
+
+    if (!confirmDelete) {
+      return
+    }
+
+    const success = await deleteDonation(id)
+
+    if (success) {
+      alert('Donation deleted successfully')
+    } else {
+      alert('Error deleting donation')
+    }
   }
 
   return (
@@ -44,7 +102,7 @@ const Admin = ({ pets, donations, addPet }) => {
       <h1>Admin Page</h1>
 
       <div className='admin-form-box'>
-        <h2>Add New Pet</h2>
+        <h2>{editId ? 'Update Pet' : 'Add New Pet'}</h2>
 
         <form onSubmit={handleSubmit} className='donation-form'>
           <input
@@ -101,9 +159,21 @@ const Admin = ({ pets, donations, addPet }) => {
             required
           />
 
-          <button type='submit' className='main-btn'>
-            {loading ? 'Adding...' : 'Add Pet'}
-          </button>
+          <div className='admin-buttons-row'>
+            <button type='submit' className='main-btn'>
+              {loading ? 'Saving...' : editId ? 'Update Pet' : 'Add Pet'}
+            </button>
+
+            {editId && (
+              <button
+                type='button'
+                className='cancel-btn'
+                onClick={resetForm}
+              >
+                Cancel
+              </button>
+            )}
+          </div>
         </form>
       </div>
 
@@ -118,6 +188,22 @@ const Admin = ({ pets, donations, addPet }) => {
               <p><strong>Breed:</strong> {pet.breed}</p>
               <p><strong>Age:</strong> {pet.age}</p>
               <p>{pet.description}</p>
+
+              <div className='admin-buttons-row'>
+                <button
+                  className='edit-btn'
+                  onClick={() => handleEdit(pet)}
+                >
+                  Edit
+                </button>
+
+                <button
+                  className='delete-btn'
+                  onClick={() => handleDelete(pet._id)}
+                >
+                  Delete
+                </button>
+              </div>
             </div>
           ))}
         </div>
@@ -140,6 +226,15 @@ const Admin = ({ pets, donations, addPet }) => {
                   className='admin-proof'
                 />
               )}
+
+              <div className='admin-buttons-row'>
+                <button
+                  className='delete-btn'
+                  onClick={() => handleDeleteDonation(item._id)}
+                >
+                  Delete
+                </button>
+              </div>
             </div>
           ))}
         </div>
