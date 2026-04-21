@@ -1,8 +1,14 @@
 import { Link } from 'react-router-dom'
+import heroImg from '../assets/hero.jpg'
 
 const Hero = ({ user }) => {
   return (
-    <section className='hero'>
+    <section
+      className='hero'
+      style={{
+        backgroundImage: `url(${heroImg})`
+      }}
+    >
       <div className='hero-overlay'>
         <h1>Adopt, Rescue, Love</h1>
         <p>
