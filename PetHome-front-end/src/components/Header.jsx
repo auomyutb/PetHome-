@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import logo from '../assets/pethome-logo.png'
 
 const Header = ({ user, signOutUser, cart }) => {
-  const cartCount = cart?.products?.reduce((total, item) => {
+  const cartCount = cart?.products?.reduce((total, item) => { 
     return total + item.quantity
   }, 0) || 0
 

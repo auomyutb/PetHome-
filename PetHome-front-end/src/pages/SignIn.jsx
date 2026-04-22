@@ -2,7 +2,7 @@ import { useState } from "react"
 import { useNavigate, Link } from "react-router-dom"
 
 const SignIn = ({ signInUser }) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate() // this means : it allows user to go another page
 
   const [form, setForm] = useState({
     email: "",
@@ -55,7 +55,7 @@ const SignIn = ({ signInUser }) => {
         </form>
 
         <p className="auth-text">
-          Don&apos;t have an account? <Link to="/sign-up">Sign Up</Link>
+         I don't have an account? <Link to="/sign-up">Sign Up</Link>
         </p>
       </div>
     </section>

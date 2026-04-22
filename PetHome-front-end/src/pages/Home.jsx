@@ -7,8 +7,6 @@ const Home = ({ user }) => {
     <>
       <Hero user={user} />
 
-      
-
       {user ? (
         <section className='home-section'>
           <h2>Find Your New Best Friend</h2>
@@ -37,13 +35,11 @@ const Home = ({ user }) => {
           </div>
         </section>
       ) : (
+
         <section className='home-section'>
           <div className='guest-box'>
             <h2>Welcome to petHome</h2>
-            <p>
-              Please sign in first to open adoption and donation options.
-            </p>
-
+            <p> Please sign in first to open adoption and donation options. </p>
             <div className='guest-buttons'>
               <Link to='/sign-in' className='main-btn'>Sign In</Link>
               <Link to='/sign-up' className='secondary-btn'>Sign Up</Link>

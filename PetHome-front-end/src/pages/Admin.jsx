@@ -12,7 +12,7 @@ const Admin = ({
   updateProduct,
   deleteProduct
 }) => {
-  const [form, setForm] = useState({
+  const [form, setForm] = useState({    // this form for dog pets
     name: '',
     type: 'dog',
     breed: '',
@@ -20,26 +20,26 @@ const Admin = ({
     description: '',
     image: ''
   })
-
-  const [productForm, setProductForm] = useState({
+  const [productForm, setProductForm] = useState({  // this from for product pets
     name: '',
     description: '',
     price: '',
     quantity: '',
     image: ''
   })
-
   const [loading, setLoading] = useState(false)
-  const [editId, setEditId] = useState(null)
-  const [productEditId, setProductEditId] = useState(null)
+  const [editId, setEditId] = useState(null) // this for edit pets
+  const [productEditId, setProductEditId] = useState(null) // this for edit product
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
+
   const handleProductChange = (e) => {
     setProductForm({ ...productForm, [e.target.name]: e.target.value })
   }
+
 
   const resetForm = () => {
     setForm({
@@ -53,6 +53,7 @@ const Admin = ({
     setEditId(null)
   }
 
+
   const resetProductForm = () => {
     setProductForm({
       name: '',
@@ -63,18 +64,18 @@ const Admin = ({
     })
     setProductEditId(null)
   }
-
   const handleSubmit = async (e) => {
     e.preventDefault()
     setLoading(true)
 
-    let success = false
 
+    let success = false ///***** 
     if (editId) {
       success = await updatePet(editId, form)
     } else {
       success = await addPet(form)
     }
+
 
     if (success) {
       alert(editId ? 'Pet updated successfully' : 'Pet added successfully')
@@ -82,29 +83,25 @@ const Admin = ({
     } else {
       alert(editId ? 'Error updating pet' : 'Error adding pet')
     }
-
     setLoading(false)
   }
+
 
   const handleProductSubmit = async (e) => {
     e.preventDefault()
     setLoading(true)
-
     let success = false
-
     if (productEditId) {
       success = await updateProduct(productEditId, productForm)
     } else {
       success = await addProduct(productForm)
     }
-
     if (success) {
       alert(productEditId ? 'Product updated successfully' : 'Product added successfully')
       resetProductForm()
     } else {
       alert(productEditId ? 'Error updating product' : 'Error adding product')
     }
-
     setLoading(false)
   }
 
@@ -117,9 +114,8 @@ const Admin = ({
       description: pet.description,
       image: pet.image
     })
-
     setEditId(pet._id)
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+    window.scrollTo({ top: 0, behavior: 'smooth' }) // this means it moves the page to the top automatically , smooth means fo nicely
   }
 
   const handleEditProduct = (product) => {
@@ -130,20 +126,16 @@ const Admin = ({
       quantity: product.quantity,
       image: product.image
     })
-
     setProductEditId(product._id)
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   const handleDelete = async (id) => {
-    const confirmDelete = window.confirm('Are you sure you want to delete this pet?')
-
+    const confirmDelete = confirm('Are you sure you want to delete this pet?')
     if (!confirmDelete) {
       return
     }
-
     const success = await deletePet(id)
-
     if (success) {
       alert('Pet deleted successfully')
     } else {
@@ -152,60 +144,47 @@ const Admin = ({
   }
 
   const handleDeleteDonation = async (id) => {
-    const confirmDelete = window.confirm('Are you sure you want to delete this donation?')
-
+    const confirmDelete = confirm('Are you sure you want to delete this donation?')
     if (!confirmDelete) {
       return
     }
-
     const success = await deleteDonation(id)
-
     if (success) {
       alert('Donation deleted successfully')
     } else {
       alert('Error deleting donation')
     }
   }
-
   const handleDeleteProduct = async (id) => {
-    const confirmDelete = window.confirm('Are you sure you want to delete this product?')
-
+    const confirmDelete = confirm('Are you sure you want to delete this product?')
     if (!confirmDelete) {
       return
     }
 
     const success = await deleteProduct(id)
-
     if (success) {
       alert('Product deleted successfully')
     } else {
       alert('Error deleting product')
     }
   }
-
   return (
     <section className='page-section'>
       <h1>Admin Page</h1>
-
       <div className='admin-form-box'>
         <h2>{editId ? 'Update Pet' : 'Add New Pet'}</h2>
-
         <form onSubmit={handleSubmit} className='donation-form'>
           <input
             type='text'
             name='name'
             placeholder='Pet Name'
             value={form.name}
-            onChange={handleChange}
-            required
-          />
+            onChange={handleChange} required/>
 
           <select
             name='type'
             value={form.type}
-            onChange={handleChange}
-            required
-          >
+            onChange={handleChange} required >
             <option value='dog'>Dog</option>
             <option value='cat'>Cat</option>
           </select>
@@ -216,8 +195,7 @@ const Admin = ({
             placeholder='Breed'
             value={form.breed}
             onChange={handleChange}
-            required
-          />
+            required />
 
           <input
             type='text'
@@ -225,16 +203,15 @@ const Admin = ({
             placeholder='Age'
             value={form.age}
             onChange={handleChange}
-            required
-          />
+            required />
 
           <textarea
             name='description'
             placeholder='Description'
             value={form.description}
             onChange={handleChange}
-            required
-          ></textarea>
+            required >
+            </textarea>
 
           <input
             type='text'
@@ -242,8 +219,7 @@ const Admin = ({
             placeholder='Image URL'
             value={form.image}
             onChange={handleChange}
-            required
-          />
+            required />
 
           <div className='admin-buttons-row'>
             <button type='submit' className='main-btn'>
@@ -254,15 +230,10 @@ const Admin = ({
               <button
                 type='button'
                 className='cancel-btn'
-                onClick={resetForm}
-              >
-                Cancel
-              </button>
-            )}
+                onClick={resetForm}>Cancel</button>)}
           </div>
         </form>
       </div>
-
       <div className='page-section'>
         <h2>All Pets</h2>
         <div className='admin-grid'>
@@ -276,22 +247,15 @@ const Admin = ({
               <p>{pet.description}</p>
 
               <div className='admin-buttons-row'>
-                <button className='edit-btn' onClick={() => handleEdit(pet)}>
-                  Edit
-                </button>
-
-                <button className='delete-btn' onClick={() => handleDelete(pet._id)}>
-                  Delete
-                </button>
+                <button className='edit-btn' onClick={() => handleEdit(pet)}>Edit</button>
+                <button className='delete-btn' onClick={() => handleDelete(pet._id)}>Delete</button>
               </div>
             </div>
           ))}
         </div>
       </div>
-
       <div className='admin-form-box'>
         <h2>{productEditId ? 'Update Product' : 'Add New Product'}</h2>
-
         <form onSubmit={handleProductSubmit} className='donation-form'>
           <input
             type='text'
@@ -299,16 +263,14 @@ const Admin = ({
             placeholder='Product Name'
             value={productForm.name}
             onChange={handleProductChange}
-            required
-          />
+            required />
 
           <textarea
             name='description'
             placeholder='Description'
             value={productForm.description}
             onChange={handleProductChange}
-            required
-          ></textarea>
+            required >  </textarea>
 
           <input
             type='number'
@@ -316,8 +278,7 @@ const Admin = ({
             placeholder='Price'
             value={productForm.price}
             onChange={handleProductChange}
-            required
-          />
+            required />
 
           <input
             type='number'
@@ -325,8 +286,7 @@ const Admin = ({
             placeholder='Quantity'
             value={productForm.quantity}
             onChange={handleProductChange}
-            required
-          />
+            required />
 
           <input
             type='text'
@@ -334,8 +294,7 @@ const Admin = ({
             placeholder='Image URL'
             value={productForm.image}
             onChange={handleProductChange}
-            required
-          />
+            required />
 
           <div className='admin-buttons-row'>
             <button type='submit' className='main-btn'>
@@ -346,15 +305,11 @@ const Admin = ({
               <button
                 type='button'
                 className='cancel-btn'
-                onClick={resetProductForm}
-              >
-                Cancel
-              </button>
+                onClick={resetProductForm} > Cancel </button>
             )}
           </div>
         </form>
       </div>
-
       <div className='page-section'>
         <h2>All Products</h2>
         <div className='admin-grid'>
@@ -365,21 +320,14 @@ const Admin = ({
               <p>{product.description}</p>
               <p><strong>Price:</strong> {product.price} BHD</p>
               <p><strong>Quantity:</strong> {product.quantity}</p>
-
               <div className='admin-buttons-row'>
-                <button className='edit-btn' onClick={() => handleEditProduct(product)}>
-                  Edit
-                </button>
-
-                <button className='delete-btn' onClick={() => handleDeleteProduct(product._id)}>
-                  Delete
-                </button>
+                <button className='edit-btn' onClick={() => handleEditProduct(product)}> Edit </button>
+                <button className='delete-btn' onClick={() => handleDeleteProduct(product._id)}> Delete </button>
               </div>
             </div>
           ))}
         </div>
       </div>
-
       <div className='page-section'>
         <h2>Donations</h2>
         <div className='admin-grid'>
@@ -389,22 +337,17 @@ const Admin = ({
               <p><strong>Email:</strong> {item.email}</p>
               <p><strong>Amount:</strong> {item.amount} BHD</p>
               <p><strong>Note:</strong> {item.note}</p>
-
               {item.transferImage && (
                 <img
                   src={`http://localhost:3000/uploads/${item.transferImage}`}
                   alt='transfer'
-                  className='admin-proof'
-                />
+                  className='admin-proof'/>
               )}
 
               <div className='admin-buttons-row'>
                 <button
                   className='delete-btn'
-                  onClick={() => handleDeleteDonation(item._id)}
-                >
-                  Delete
-                </button>
+                  onClick={() => handleDeleteDonation(item._id)}> Delete </button>
               </div>
             </div>
           ))}

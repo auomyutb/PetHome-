@@ -15,7 +15,7 @@ const team = [
     id: 3,
     name: 'Mohmmed',
     role: 'Full-Stack Support',
-    image: 'https://i.imgur.com/sy2dyPG.png'
+    image: 'https://i.imgur.com/tLs2Ndo.jpeg'
   }
 ]
 

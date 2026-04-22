@@ -1,6 +1,10 @@
 import { useState } from "react"
 import { useNavigate, Link } from "react-router-dom"
 
+// here we use Navigate to go directly second page .
+// we use links here for button signUp
+
+
 const SignUp = ({ signUpUser }) => {
   const navigate = useNavigate()
 
@@ -60,9 +64,7 @@ const SignUp = ({ signUpUser }) => {
             required
           />
 
-          <button type="submit" className="main-btn">
-            Create Account
-          </button>
+          <button type="submit" className="main-btn">Create Account</button>
         </form>
 
         <p className="auth-text">

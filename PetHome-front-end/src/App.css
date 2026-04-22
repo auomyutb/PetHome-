@@ -4,16 +4,13 @@
   box-sizing: border-box;
   font-family: Arial, sans-serif;
 }
-
 body {
   background-color: #f7f5f0;
   color: #2d2d2d;
 }
-
 a {
   text-decoration: none;
 }
-
 .app {
   min-height: 100vh;
 }
@@ -29,7 +26,6 @@ a {
   top: 0;
   z-index: 100;
 }
-
 .logo {
   font-size: 28px;
   font-weight: bold;
@@ -41,12 +37,10 @@ a {
   gap: 18px;
   align-items: center;
 }
-
 .nav a {
   color: #333;
   font-weight: 600;
 }
-
 .donate-btn,
 .main-btn,
 .secondary-btn {
@@ -55,28 +49,27 @@ a {
   display: inline-block;
   transition: 0.3s;
 }
-
 .donate-btn,
 .main-btn {
+  /* this for donations */
   background-color: #7b4f2a;
   color: white !important;
 }
-
 .secondary-btn {
+  /* this for   find your box*/
   background-color: #e7d8c9;
   color: #4b2e1d;
 }
-
 .hero {
+  /* this for middle  box in home page */
   height: 85vh;
-  background-image: url("https://images.unsplash.com/photo-1517849845537-4d257902454a?w=1200");
+  /* background-image: ; */
   background-size: cover;
   background-position: center;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
 .hero-overlay {
   background-color: rgba(0, 0, 0, 0.45);
   color: white;
@@ -89,19 +82,16 @@ a {
   text-align: center;
   padding: 20px;
 }
-
 .hero-overlay h1 {
   font-size: 54px;
   margin-bottom: 20px;
 }
-
 .hero-overlay p {
   max-width: 700px;
   font-size: 18px;
   line-height: 1.7;
   margin-bottom: 25px;
 }
-
 .hero-buttons {
   display: flex;
   gap: 14px;
@@ -120,7 +110,6 @@ a {
   margin-bottom: 15px;
   color: #4b2e1d;
 }
-
 .home-section p {
   text-align: center;
   margin-bottom: 30px;
@@ -140,14 +129,32 @@ a {
 .pet-card,
 .team-card,
 .admin-card,
-.donation-box,
-.thank-you-box {
+.donation-box {
   background-color: white;
   border-radius: 16px;
   padding: 20px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
+.thank-you-box {
+  background-color: white;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+.thank-you-box h3 {
+  font-size: 35px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+.thank-you-box p {
+  text-align: center;
+  margin-bottom: 30px;
+  max-width: 700px;
+  font-size: 18px;
+  line-height: 1.7;
+  margin-bottom: 25px;
+}
 .info-card h3,
 .pet-info h3,
 .team-card h3,
@@ -233,15 +240,6 @@ a {
     flex-wrap: wrap;
     justify-content: center;
   }
-
-  .hero-overlay h1 {
-    font-size: 36px;
-  }
-
-  .hero-overlay p {
-    font-size: 16px;
-  }
-
   .home-section,
   .page-section {
     padding: 40px 20px;
@@ -411,7 +409,7 @@ select {
   font-weight: 600;
 }
 
-.logo-showcase {
+/* .logo-showcase {
   padding: 60px 20px 20px;
   background-color: #f7f5f0;
   display: flex;
@@ -466,20 +464,13 @@ select {
   .logo-box p {
     font-size: 15px;
   }
-}
+} */
 
 .header-logo {
   width: 170px;
   height: auto;
   object-fit: contain;
 }
-
-.header-logo {
-  width: 170px;
-  height: auto;
-  object-fit: contain;
-}
-
 .products-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -618,11 +609,11 @@ select {
 }
 
 .hero::before {
-  content: '';
+  content: "";
   position: absolute;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.4);
+  background: rgba(0, 0, 0, 0.4);
   top: 0;
   left: 0;
 }
