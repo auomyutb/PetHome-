@@ -15,7 +15,7 @@ import SignIn from "./pages/SignIn"
 import ProtectedRoute from "./components/ProtectedRoute"
 import Products from "./pages/Products"
 import CartPage from "./pages/CartPage"
-           
+
 const App = () => {
   const [pets, setPets] = useState([])
   const [dogs, setDogs] = useState([])
@@ -27,7 +27,7 @@ const App = () => {
 
   const getPets = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/pets")
+      const response = await axios.get("https://pethome-3.onrender.com/pets")
       const allPets = response.data
 
       setPets(allPets)
@@ -40,7 +40,9 @@ const App = () => {
 
   const getDonations = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/donations")
+      const response = await axios.get(
+        "https://pethome-3.onrender.com/donations"
+      )
       setDonations(response.data)
     } catch (error) {
       console.log(error)
@@ -49,7 +51,9 @@ const App = () => {
 
   const getProducts = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/products")
+      const response = await axios.get(
+        "https://pethome-3.onrender.com/products"
+      )
       setProducts(response.data)
     } catch (error) {
       console.log(error)
@@ -59,7 +63,9 @@ const App = () => {
   const getCart = async (userId) => {
     try {
       if (!userId) return
-      const response = await axios.get(`http://localhost:3000/cart/${userId}`)
+      const response = await axios.get(
+        `https://pethome-3.onrender.com/cart/${userId}`
+      )
       setCart(response.data)
     } catch (error) {
       console.log(error)
@@ -82,7 +88,7 @@ const App = () => {
 
   const addDonation = async (formData) => {
     try {
-      await axios.post("http://localhost:3000/donations", formData, {
+      await axios.post("https://pethome-3.onrender.com/donations", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -98,7 +104,7 @@ const App = () => {
   const addPet = async (petData) => {
     try {
       const token = localStorage.getItem("token")
-      await axios.post("http://localhost:3000/pets", petData, {
+      await axios.post("https://pethome-3.onrender.com/pets", petData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -114,7 +120,7 @@ const App = () => {
   const updatePet = async (id, petData) => {
     try {
       const token = localStorage.getItem("token")
-      await axios.put(`http://localhost:3000/pets/${id}`, petData, {
+      await axios.put(`https://pethome-3.onrender.com/pets/${id}`, petData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -130,7 +136,7 @@ const App = () => {
   const deletePet = async (id) => {
     try {
       const token = localStorage.getItem("token")
-      await axios.delete(`http://localhost:3000/pets/${id}`, {
+      await axios.delete(`https://pethome-3.onrender.com/pets/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -146,7 +152,7 @@ const App = () => {
   const deleteDonation = async (id) => {
     try {
       const token = localStorage.getItem("token")
-      await axios.delete(`http://localhost:3000/donations/${id}`, {
+      await axios.delete(`https://pethome-3.onrender.com/donations/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -161,7 +167,7 @@ const App = () => {
 
   const addProduct = async (productData) => {
     try {
-      await axios.post("http://localhost:3000/products", productData)
+      await axios.post("https://pethome-3.onrender.com/products", productData)
       getProducts()
       return true
     } catch (error) {
@@ -172,7 +178,10 @@ const App = () => {
 
   const updateProduct = async (id, productData) => {
     try {
-      await axios.put(`http://localhost:3000/products/${id}`, productData)
+      await axios.put(
+        `https://pethome-3.onrender.com/products/${id}`,
+        productData
+      )
       getProducts()
       return true
     } catch (error) {
@@ -183,7 +192,7 @@ const App = () => {
 
   const deleteProduct = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/products/${id}`)
+      await axios.delete(`https://pethome-3.onrender.com/products/${id}`)
       getProducts()
       return true
     } catch (error) {
@@ -200,7 +209,7 @@ const App = () => {
       }
 
       const userId = user.id || user._id
-      await axios.post("http://localhost:3000/cart/add", {
+      await axios.post("https://pethome-3.onrender.com/cart/add", {
         user: userId,
         product: productId,
         quantity: 1, ///****
@@ -217,7 +226,7 @@ const App = () => {
   const removeFromCart = async (productId) => {
     try {
       const userId = user.id || user._id
-      await axios.post("http://localhost:3000/cart/remove", {
+      await axios.post("https://pethome-3.onrender.com/cart/remove", {
         user: userId,
         product: productId,
       })
@@ -232,7 +241,7 @@ const App = () => {
   const clearCart = async () => {
     try {
       const userId = user.id || user._id
-      await axios.delete(`http://localhost:3000/cart/clear/${userId}`)
+      await axios.delete(`https://pethome-3.onrender.com/cart/clear/${userId}`)
       setCart(null)
     } catch (error) {
       console.log(error)
@@ -242,7 +251,7 @@ const App = () => {
 
   const signUpUser = async (formData) => {
     try {
-      await axios.post("http://localhost:3000/auth/sign-up", formData)
+      await axios.post("https://pethome-3.onrender.com/auth/sign-up", formData)
       return true
     } catch (error) {
       console.log(error)
@@ -253,7 +262,7 @@ const App = () => {
   const signInUser = async (formData) => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/auth/sign-in",
+        "https://pethome-3.onrender.com/auth/sign-in",
         formData
       )
       localStorage.setItem("token", response.data.token)
